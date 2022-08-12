@@ -23,7 +23,24 @@ class AdminController extends Controller
 
     public function StoreListing(Request $request)
     {
+
+        $long = 'long';
+        $lat = 'lat';
         
+        DB::table('listings')->insert([
+            'name' => $request->name,
+            'image' => 'update asap',
+            'description' => $request->description,
+            'long' => $long,
+            'lat' => $lat,
+            'website' => $request->website,
+            'line_one' => $request->line_one,
+            'line_two' => $request->line_two,
+            'town' => $request->town,
+            'county' => $request->county,
+            'country' => $request->country,
+            'postcode' => $request->postcode,
+        ]);
     }
 
     public function listings()
