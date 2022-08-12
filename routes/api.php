@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApiController;
 use App\Http\Controllers\ListingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -17,11 +18,11 @@ use Illuminate\Support\Facades\Route;
 
 
 //{GET} Listing API Routes For App
-    Route::get('/listings/{long}/{lat}/{radius}', [ListingController::class, 'listings']);
+    Route::get('/listings/{long}/{lat}/{radius}', [ApiController::class, 'listings']);
 
-    Route::get('/listings', [ListingController::class, 'AllListings'])->name('AllListings');
+    Route::get('/listings', [ApiController::class, 'AllListings'])->name('AllListings');
     
-    Route::get('/listing/{id}', [ListingController::class, 'GetListing'])->name('GetListing');
+    Route::get('/listing/{id}', [ApiController::class, 'GetListing'])->name('GetListing');
 
 // {GET} Event API Routes 
 // This will show events happening near the user and will show until the date of the event
