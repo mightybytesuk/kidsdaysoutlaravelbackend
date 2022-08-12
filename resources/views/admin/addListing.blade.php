@@ -11,6 +11,7 @@
         <input type="text" name="county" class="form-control" placeholder="County">
         <input type="text" name="country" class="form-control" placeholder="Country">
         <input type="text" name="postcode" class="form-control" placeholder="Postcode/Zip Code">
+        
         <input type="text" name="price" class="form-control" placeholder="Price">
         <input type="text" name="website" class="form-control" placeholder="Website URL">   
         <input type="file" name="image" class="form-control">
