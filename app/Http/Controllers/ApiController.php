@@ -35,17 +35,11 @@ class ApiController extends Controller
             }
         }
        
-    //    foreach($data as $dat){
-    //      $listing = DB::table('listings')->where('id', $dat)->first();
-
-    //      var_dump($listing);
-    //    }
-
     $data = json_encode($data);
     $output = json_encode(['listings' => json_decode($data, true)]);
 
     echo $output;
-        // return($data);
+      
     }
 
     public function AllListings()
