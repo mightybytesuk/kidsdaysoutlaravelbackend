@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use SimpleXMLElement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Spatie\SimpleExcel\SimpleExcelReader;
 
 class ApiController extends Controller
 {
@@ -55,22 +57,47 @@ class ApiController extends Controller
 
         return($listing);
     }
-
-    //Testing Best Way to import csv file to DB
+    
     public function importCSV(Request $request)
     {
-        $row = 1;
-        if (($handle = fopen("test.csv", "r")) !== FALSE) {
-            while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-                $num = count($data);
-                echo "<p> $num fields in line $row: <br /></p>\n";
-                $row++;
-                for ($c=0; $c < $num; $c++) {
-                    echo $data[$c] . "<br />\n";
-                }
-            }
-            fclose($handle);
-        }
-        
+        //Get Long & Lat From Address Via Google Maps API
+
+       
+        $i = 0;
+        //
+        SimpleExcelReader::create('test.csv')->getRows()
+        ->each(function(array $rowProperties) {
+
+            $address = $rowProperties['address'];
+            $address = trim(preg_replace('/\s\s+/', '', $address));
+            $address = str_replace(",","+",$address);
+            $address = str_replace(" ","",$address);
+            
+
+            
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, "https://maps.googleapis.com/maps/api/geocode/json?address=".$address."&key=AIzaSyDxgA5Hw6elayyKIURAI-Ax2tJeZko5wAI");
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            $data = curl_exec($ch);
+            $decode = json_decode($data, true);
+            
+            curl_close($ch); 
+
+            DB::table('listings')->insert([
+                'name' => $rowProperties['name'],
+                'description' => $rowProperties['description'],
+                'long' => $decode['results'][0]['geometry']['location']['lng'],
+                'lat' => $decode['results'][0]['geometry']['location']['lat'],
+                'image' => $rowProperties['image-src'],
+                'price' => null,
+                'website' => $rowProperties['website-href'],
+                'phone' => $rowProperties['number'],
+                'address' => $rowProperties['address'],
+            ]);
+            
+         });
+
+         return('Import Complete');
     }
+
 }

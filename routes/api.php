@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 //Test Route
-    Route::get('/test', [ApiController::class, 'importCSV`']);
+    Route::get('/test', [ApiController::class, 'importCSV']);
 
 //{GET} Listing API Routes For App
     Route::get('/listings/{long}/{lat}/{radius}', [ApiController::class, 'listings']);
