@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use SimpleXMLElement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Response;
 use Spatie\SimpleExcel\SimpleExcelReader;
+
 
 class ApiController extends Controller
 {
@@ -48,7 +50,7 @@ class ApiController extends Controller
     {
         $listings = DB::table('listings')->get();
 
-        return($listings);
+        return Response::json(['listings'=>$listings],200);
     }
 
     public function GetListing(Request $request)
