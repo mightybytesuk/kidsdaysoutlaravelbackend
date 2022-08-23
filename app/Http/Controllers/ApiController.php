@@ -16,7 +16,7 @@ class ApiController extends Controller
         $data = [];
         $listings = DB::table('listings')->get();
 
-        // return($listings);
+        // Move this into a query as bulky at the moment
 
         foreach($listings as $listing)
         {
