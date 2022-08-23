@@ -78,7 +78,7 @@ class ApiController extends Controller
 
             
             $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, "https://maps.googleapis.com/maps/api/geocode/json?address=".$address."&key=AIzaSyDxgA5Hw6elayyKIURAI-Ax2tJeZko5wAI");
+            curl_setopt($ch, CURLOPT_URL, "https://maps.googleapis.com/maps/api/geocode/json?address=".$address."&key=APIKEY");
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             $data = curl_exec($ch);
             $decode = json_decode($data, true);
